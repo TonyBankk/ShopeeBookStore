@@ -1,0 +1,122 @@
+erDiagram
+
+    KhachHang ||--o{ DonHang : "dat"
+    NhanVien ||--o{ DonHang : "quan_ly"
+
+    TheLoai ||--o{ SanPham : "phan_loai"
+    NhaXuatBan ||--o{ SanPham : "xuat_ban"
+    KhuyenMai ||--o{ SanPham : "ap_dung"
+
+    DonHang ||--o{ ChiTietDonHang : "co"
+    SanPham ||--o{ ChiTietDonHang : "duoc_dat"
+
+    NhaCungCap ||--o{ PhieuNhapHang : "cung_cap"
+    NhanVien ||--o{ PhieuNhapHang : "lap"
+
+    PhieuNhapHang ||--o{ ChiTietNhapHang : "co"
+    SanPham ||--o{ ChiTietNhapHang : "duoc_nhap"
+
+    DonHang ||--o{ ThanhToan : "thanh_toan"
+
+
+    KhachHang {
+        INT MaKhachHang PK
+        NVARCHAR HoTen
+        VARCHAR SoDienThoai
+        VARCHAR Email
+        NVARCHAR DiaChi
+    }
+
+    TheLoai {
+        INT MaTheLoai PK
+        NVARCHAR TenTheLoai
+        NVARCHAR MoTa
+    }
+
+    NhaXuatBan {
+        INT MaNhaXuatBan PK
+        NVARCHAR TenNhaXuatBan
+        NVARCHAR DiaChi
+        VARCHAR SoDienThoai
+        VARCHAR Email
+    }
+
+    NhaCungCap {
+        INT MaNhaCungCap PK
+        NVARCHAR TenNhaCungCap
+        NVARCHAR DiaChi
+        VARCHAR SoDienThoai
+        VARCHAR Email
+    }
+
+    NhanVien {
+        INT MaNhanVien PK
+        NVARCHAR HoTen
+        VARCHAR SoDienThoai
+        VARCHAR Email
+        NVARCHAR ChucVu
+    }
+
+    KhuyenMai {
+        INT MaKhuyenMai PK
+        NVARCHAR TenKhuyenMai
+        NVARCHAR MoTa
+        DECIMAL PhanTramGiam
+        DATE NgayBatDau
+        DATE NgayKetThuc
+        NVARCHAR TrangThai
+    }
+
+    SanPham {
+        INT MaSanPham PK
+        NVARCHAR TenSach
+        VARCHAR ISBN UK
+        DECIMAL GiaBan
+        INT SoLuongTon
+        INT NamXuatBan
+        INT MaTheLoai FK
+        INT MaNhaXuatBan FK
+        INT MaKhuyenMai FK
+    }
+
+    DonHang {
+        INT MaDonHang PK
+        DATETIME NgayDat
+        DECIMAL TongTien
+        NVARCHAR TrangThai
+        INT MaKhachHang FK
+        INT MaNhanVien FK
+    }
+
+    ChiTietDonHang {
+        INT MaDonHang PK
+        INT MaSanPham PK
+        INT SoLuong
+        DECIMAL DonGia
+        DECIMAL ThanhTien
+    }
+
+    PhieuNhapHang {
+        INT MaPhieuNhap PK
+        DATETIME NgayNhap
+        DECIMAL TongTienNhap
+        INT MaNhaCungCap FK
+        INT MaNhanVien FK
+    }
+
+    ChiTietNhapHang {
+        INT MaPhieuNhap PK
+        INT MaSanPham PK
+        INT SoLuong
+        DECIMAL DonGiaNhap
+        DECIMAL ThanhTien
+    }
+
+    ThanhToan {
+        INT MaThanhToan PK
+        INT MaDonHang FK
+        NVARCHAR KyDoiSoat
+        DECIMAL SoTien
+        DATETIME NgayThanhToan
+        NVARCHAR TrangThaiThanhToan
+    }
